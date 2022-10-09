@@ -11,8 +11,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gobuffalo/packr/v2"
-	"github.com/mxschmitt/golang-url-shortener/internal/stores"
-	"github.com/mxschmitt/golang-url-shortener/internal/util"
+	"github.com/mxschmitt/golang-url-shortener/stores"
+	"github.com/mxschmitt/golang-url-shortener/util"
 	"github.com/pkg/errors"
 )
 
@@ -39,10 +39,10 @@ var templateBox = packr.New("Templates", "./tmpls")
 // Requests without errors are logged using logrus.Info().
 //
 // It receives:
-//   1. A time package format string (e.g. time.RFC3339).
-//   2. A boolean stating whether to use UTC time zone or local.
-//   3. Optionally, a list of paths to skip logging for (this is why
-//      we are not using upstream github.com/gin-gonic/contrib/ginrus)
+//  1. A time package format string (e.g. time.RFC3339).
+//  2. A boolean stating whether to use UTC time zone or local.
+//  3. Optionally, a list of paths to skip logging for (this is why
+//     we are not using upstream github.com/gin-gonic/contrib/ginrus)
 func Ginrus(logger loggerEntryWithFields, timeFormat string, utc bool, notlogged ...string) gin.HandlerFunc {
 	var skip map[string]struct{}
 	if length := len(notlogged); length > 0 {
